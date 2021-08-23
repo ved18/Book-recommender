@@ -1,0 +1,97 @@
+
+{% extends "student/base-layout-student.html" %}
+
+{% block content %}
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">        
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Issue History </h1>
+          <p class="mb-4">Issue history till one year</p>
+
+          {% if noBookIssued %}
+            You have not issued any books in last year.<br>
+            Issue a book to see issue history
+          {% endif %}
+
+          {% if not noBookIssued %}
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Search using search bar for specific results</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Date of issue</th>
+                      <th>Barcode </th>
+                      <th>Book Name</th>   
+                      <th>Ratings</th>                   
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Date of issue</th>
+                      <th>Barcode </th>
+                      <th>Book Name</th>
+                      <th>Ratings</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>                                     
+                    {% for i in result %}
+                    <tr>
+                    <td>{{i.DATE}}</td>
+                    <td>{{i.barcode}}</td>
+                    <td>{{i.title}}</td>
+                    
+                      <td>  
+                        
+                       {% include "student/ratings.html" with issueRow=i  %}  
+                      </td>
+                   
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Group No 13</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->  
+  {% load static %}
+  <script src="{%static '/js/sb-admin-2.min.js' %}"></script>
+    
+{% endblock %}
